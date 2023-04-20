@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>    
+        <!--Componentes-->
+        <record model="method_ltdc.producto_composicion" id="1">        
+            <field name="name">No Aplica</field>
+            <field name="active">True</field>
+        </record>      
+        <!--Temporadas-->
+        <record model="method_ltdc.producto_temporada" id="2">        
+            <field name="name">No Aplica</field>
+            <field name="active">True</field>
+        </record>      
+
+    </data>
+</odoo>
+

@@ -1,0 +1,29 @@
+<odoo>
+  <data>
+  <!-- Formulario -->
+    <!-- Facturas de compras -->
+        <record id="view_supplier_invoice_form" model="ir.ui.view">
+            <field name="name">l10n_cl.invoice.form</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_supplier_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='partner_bank_id']" position="after">
+                  <field name="order_id" options="{'no_create': True}" string="Carpeta Importación"/>
+                </xpath>
+            </field>
+        </record>
+  	
+    <!-- Facturas de compras -->
+        <record id="method_ltdc.view_account_invoice_filter" model="ir.ui.view">
+            <field name="name">method_ltdc.view.account.invoice.filter</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.view_account_invoice_filter" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='partner_id']" position="after">
+                  <field name="order_id" string="Carpeta Importación"/>
+                </xpath>
+            </field>
+        </record>
+
+  </data>
+</odoo>

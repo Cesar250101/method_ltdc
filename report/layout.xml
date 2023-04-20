@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="method_ltdc.dte_external_layout" name="dte_external_layout_extend" inherit_id="l10n_cl_fe.dte_external_layout">
+        <field name="default_code" position="after">        
+            <t t-if="o.partner_id.es_paris">
+                <td style="max-height:8px; line-height:10px !important;">
+                    <span t-field="l.product_id.default_code" />
+                </td>
+            </t>
+        </field>
+    </template>    
+</odoo>
