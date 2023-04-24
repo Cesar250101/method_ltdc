@@ -16,9 +16,23 @@
         </xpath> 
         <field name="default_code" position="attributes">
             <attribute name="required">True</attribute>
-        </field>
+        </field>        
       </field>
     </record>
+
+  <record id="ltdc_product_product_form" model="ir.ui.view">
+    <field name="name">ltdc.product.product.form</field>
+    <field name="model">product.product</field>
+    <field name="inherit_id" ref="product.product_normal_form_view"/>
+    <field name="arch" type="xml">
+      <field name="default_code" position="replace">
+        <div class="o_row">
+          <span style="display:contents!important"><field name="default_code"/></span>
+          <button name="generar_sku" type="object" class="btn-xs btn-link mb4 fa fa-cog" title="Generar SKU"/>
+        </div>
+      </field>
+    </field>
+  </record>    
 
 <!-- Formulario de Product_template -->
     <record id="ltdc_product_template_view_form" model="ir.ui.view">
