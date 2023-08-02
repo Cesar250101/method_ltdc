@@ -28,6 +28,7 @@
         'views/product_product.xml',
         'views/templates.xml',
         'views/res_partner.xml',
+        'views/product_template.xml',
         # 'report/layout.xml',
         'data/data.xml',
         'views/invoice.xml',

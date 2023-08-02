@@ -1,0 +1,17 @@
+<odoo>
+  <data>
+<!-- Formulario de Product_product -->
+    <record id="ltdc_product_template_form_view" model="ir.ui.view">
+      <field name="name">ltdc.product.template.form.view</field>
+      <field name="model">product.template</field>
+      <field name="inherit_id" ref="product.product_template_form_view"/>      
+      <field name="arch" type="xml">      
+        <xpath expr="//field[@name='categ_id']" position="after">
+          <field name="componente_id" class="text-success" options="{'no_create': True}"/>
+          <field name="temporada_id" class="text-success" options="{'no_create': True}"/>
+        </xpath> 
+      </field>
+    </record>
+
+  </data>
+</odoo>

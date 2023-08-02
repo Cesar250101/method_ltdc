@@ -10,10 +10,10 @@
           <field name="tienda_paris" class="text-success"/>
           <field name="sku_paris" class="text-success" attrs="{'invisible':[('tienda_paris', '=', False)],'required': [('tienda_paris', '=', True)],}"/>
         </xpath> 
-        <xpath expr="//field[@name='categ_id']" position="after">
+        <!-- <xpath expr="//field[@name='categ_id']" position="after">
           <field name="componente_id" class="text-success" options="{'no_create': True}"/>
           <field name="temporada_id" class="text-success" options="{'no_create': True}"/>
-        </xpath> 
+        </xpath>  -->
         <field name="default_code" position="attributes">
             <attribute name="required">True</attribute>
         </field>        

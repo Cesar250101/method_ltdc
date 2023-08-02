@@ -35,7 +35,9 @@ class Partner(models.Model):
                     'product_uom_qty':v.product_qty,
                     'product_uom':v.product_uom.id,
                     'location_dest_id':self.location_dest_id.id,
-                    'location_id':self.location_id.id
+                    'location_id':self.location_id.id,
+                    'price_unit':v.product_id.list_price
+
                 }   
             stock_move_id=self.env['stock.move'].sudo().create(val)                
 
