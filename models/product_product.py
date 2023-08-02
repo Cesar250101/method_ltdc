@@ -18,12 +18,10 @@ class ProductProduct(models.Model):
     
     componente_id_bak = fields.Many2one(comodel_name='method_ltdc.producto_composicion', 
                                     string='Composición bak',
-                                    required=True,
-                                    related="product_tmpl_id.componente_id")
+                                    required=True)
     temporada_id_bak = fields.Many2one(comodel_name='method_ltdc.producto_temporada', 
                                    string='Temporada bak',
-                                   required=True,
-                                   related='product_tmpl_id.temporada_id')
+                                   required=True)
 
 
     @api.multi
