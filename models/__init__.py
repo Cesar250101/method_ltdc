@@ -6,3 +6,4 @@ from . import invoice
 from . import stock_picking
 from . import stock_quant
 from . import product_template
+from . import pos_order

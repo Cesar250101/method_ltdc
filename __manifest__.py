@@ -33,6 +33,7 @@
         'data/data.xml',
         'views/invoice.xml',
         'views/stock_move.xml',
+        'views/pos_order.xml'
     ],
     # only loaded in demonstration mode
     'demo': [
