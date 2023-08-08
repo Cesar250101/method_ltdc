@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+   	<record id="method_ltdc.view_order_form" model="ir.ui.view">
+        <field name="name">method.ltdc.view.order.form</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+        <xpath expr="//page[@name='other_information']" position="after">
+          <page name="picking" string="Movimientos de Inventario">
+            <field name="picking_ids.move_line_ids" widget="section_and_note_one2many" mode="tree">
+                <tree string="Movimientos de Stock">
+                  <field name="product_id"/>
+                  <field name="location_id"/>
+                  <field name="product_uom_id"/>                  
+                </tree>                
+            </field>
+          </page>
+        </xpath>              
+        </field>
+    </record>    
+</odoo>
+
+

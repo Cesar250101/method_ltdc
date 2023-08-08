@@ -20,7 +20,7 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base','stock','l10n_cl_fe'],
+    'depends': ['base','stock','l10n_cl_fe','sh_shopify_connector'],
 
     # always loaded
     'data': [
@@ -33,7 +33,9 @@
         'data/data.xml',
         'views/invoice.xml',
         'views/stock_move.xml',
-        'views/pos_order.xml'
+        'views/pos_order.xml',
+        'views/stock_location.xml',
+        # 'views/sale_order.xml'
     ],
     # only loaded in demonstration mode
     'demo': [

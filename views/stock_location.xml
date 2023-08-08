@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- form -->
+   	<record id="method_ltdc.view_location_form" model="ir.ui.view">
+        <field name="name">method.ltdc.view.location.form</field>
+        <field name="model">stock.location</field>
+        <field name="inherit_id" ref="stock.view_location_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group" position="inside">
+                <group string="Shopify">
+                    <field name="prioridad_despacho" />
+                </group>            
+                
+            </xpath>  
+        </field>
+    </record>
+
+    <!-- stock.view_location_tree2     -->
+   	<record id="method_ltdc.view_location_tree2" model="ir.ui.view">
+        <field name="name">method.ltdc.view.location.tree2</field>
+        <field name="model">stock.location</field>
+        <field name="inherit_id" ref="stock.view_location_tree2"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='usage']" position="before">
+                <field name="prioridad_despacho" />                
+            </xpath>  
+        </field>
+    </record>
+
+</odoo>
+
+
