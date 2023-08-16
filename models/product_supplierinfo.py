@@ -5,7 +5,7 @@ from odoo import models, fields, api
 class ProductSupplier(models.Model):
     _inherit = 'product.supplierinfo'
 
-    
+    @api.model
     def unificar_proveedor(self):
         query="""
             select product_tmpl_id  
