@@ -1,3 +1,5 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_componente_director_inventario_ltdc,Componentes-Productos Directores Inventario,method_ltdc.model_method_ltdc_producto_composicion,stock.group_stock_manager,1,1,1,1
 access_temporada_director_inventario_ltdc,Temporada-Productos Directores Inventario,method_ltdc.model_method_ltdc_producto_temporada,stock.group_stock_manager,1,1,1,1
+access_report_proveedor,Ventas por proveedor,method_ltdc.model_method_ltdc_ventas_report_proveedor,stock.group_stock_manager,1,1,1,1
+access_report_proveedor_stock,Stock por proveedor,method_ltdc.model_method_ltdc_stock_report_proveedor,stock.group_stock_manager,1,1,1,1

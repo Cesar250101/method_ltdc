@@ -1,0 +1,23 @@
+<odoo>
+  <data>
+
+    <record id="method_ltdc.stock_report_tree_view" model="ir.ui.view">
+        <field name="name">method.ltdc.stock.report.tree.view</field>
+        <field name="model">method_ltdc.reporte_stock_proveedor</field>
+        <field name="arch" type="xml">
+            <tree string="Reporte stock proveedor" default_order='date'>
+                <field name="proveedor"/>
+                <field name="sku"/>
+                <field name="nombreproducto"/>
+                <field name="atributo"/>
+                <field name="ubicacion"/>
+                <field name="stock"/>
+                <field name="categoria"/>
+                <field name="composicion"/>
+                <field name="temporada"/>
+                <field name="vendidos"/>
+            </tree>
+        </field>
+    </record>
+  </data>
+</odoo>

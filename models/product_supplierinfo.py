@@ -5,8 +5,8 @@ from odoo import models, fields, api
 class ProductSupplier(models.Model):
     _inherit = 'product.supplierinfo'
 
-    @api.model
-    def unificar_proveedor(self):
+    @api.multi
+    def corrige_proveedores_duplicados(self):
         query="""
             select product_tmpl_id  
             from product_supplierinfo ps 
@@ -21,9 +21,8 @@ class ProductSupplier(models.Model):
                 r=1
                 product_template_ids=self.search([('product_tmpl_id','=',i[0])])
                 for pt in product_template_ids:
+                    pt.product_id=False                    
                     if r>1:
                         query="delete from product_supplierinfo where id={}".format(pt.id)        
                         self.env.cr.execute(query)
                     r+=1
-                    pt.product_id=False
-            return True
