@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from datetime import timedelta
-from addons.sh_shopify_connector.models.sale_order import MAP_INVOICE_TYPE_PARTNER_TYPE
+# from addons.sh_shopify_connector.models.sale_order import MAP_INVOICE_TYPE_PARTNER_TYPE
 from odoo import fields, models,_,api
 from odoo.exceptions import UserError, ValidationError
 

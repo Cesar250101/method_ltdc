@@ -4,6 +4,7 @@
 
     'summary': """
         Localización cliente LTDC
+        -Se agregan los reportes de stock por proveedor y ventas por proveedor
         """,
 
     'description': """

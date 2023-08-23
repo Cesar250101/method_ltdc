@@ -36,7 +36,7 @@ class Ventas(models.Model):
                 inner join product_category pc on pt.categ_id =pc.id 
                 left join product_supplierinfo ps on ps.product_tmpl_id =pt.id 
                 left join product_attribute_value_product_product_rel pavppr on pp.id=pavppr.product_product_id 
-                inner join product_attribute_value pav on pavppr.product_attribute_value_id =pav.id
+                left join product_attribute_value pav on pavppr.product_attribute_value_id =pav.id
                 left join method_ltdc_producto_composicion mlpc on pt.componente_id =mlpc.id 
                 left join method_ltdc_producto_temporada mlpt on pt.temporada_id =mlpc.id 
                 union 
@@ -49,7 +49,7 @@ class Ventas(models.Model):
                 inner join product_category pc on pt.categ_id =pc.id 
                 left join product_supplierinfo ps on ps.product_tmpl_id =pt.id 
                 left join product_attribute_value_product_product_rel pavppr on pp.id=pavppr.product_product_id 
-                inner join product_attribute_value pav on pavppr.product_attribute_value_id =pav.id
+                left join product_attribute_value pav on pavppr.product_attribute_value_id =pav.id
                 left join method_ltdc_producto_composicion mlpc on pt.componente_id =mlpc.id 
                 left join method_ltdc_producto_temporada mlpt on pt.temporada_id =mlpc.id 
             )
