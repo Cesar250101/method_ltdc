@@ -18,6 +18,7 @@ class Ventas(models.Model):
     temporada_id = fields.Many2one(comodel_name='method_ltdc.producto_temporada', string='Temporada')
     cantidad = fields.Integer(string='Cantidad')
     price_subtotal = fields.Integer(string='Subtotal')
+    price_subtotal_incl = fields.Integer(string='Total')
     fecha_orden = fields.Date(string='Fecha Orden')
     origen = fields.Char(string='Origen')
 
@@ -36,7 +37,7 @@ inner join product_template pt on pp.product_tmpl_id =pt.id
 inner join product_category pc on pt.categ_id =pc.id 
 left join product_supplierinfo ps on ps.product_tmpl_id =pt.id 
 left join method_ltdc_producto_composicion mlpc on pt.componente_id =mlpc.id 
-left join method_ltdc_producto_temporada mlpt on pt.temporada_id =mlpc.id
+left join method_ltdc_producto_temporada mlpt on pt.temporada_id =mlpt.id
 union 
 Select ROW_NUMBER() OVER() AS id, ps.name partner_id,pp.id product_id,pt.id product_tmpl_id,pt.categ_id,
 mlpc.id composicion_id,mlpt.id  temporada_id,sol.product_uom_qty cantidad,sol.price_subtotal,sol.price_total ,
@@ -47,7 +48,7 @@ inner join product_template pt on pp.product_tmpl_id =pt.id
 inner join product_category pc on pt.categ_id =pc.id 
 left join product_supplierinfo ps on ps.product_tmpl_id =pt.id 
 left join method_ltdc_producto_composicion mlpc on pt.componente_id =mlpc.id 
-left join method_ltdc_producto_temporada mlpt on pt.temporada_id =mlpc.id 
+left join method_ltdc_producto_temporada mlpt on pt.temporada_id =mlpt.id 
             )
         """ % (
             self._table
