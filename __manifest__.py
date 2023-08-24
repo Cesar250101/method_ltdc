@@ -37,8 +37,9 @@
         'views/pos_order.xml',
         'views/stock_location.xml',
         # 'views/report_stock_proveedor.xml',
-        'report/report.xml',
-        'report/report_stock.xml'
+        'report/sale_report.xml',
+        'report/report_stock.xml',
+        'report/shopify_delivery.xml'
     ],
     # only loaded in demonstration mode
     'demo': [

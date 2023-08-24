@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="method_ltdc.shopify_delivery_report_pivot" model="ir.ui.view">
+        <field name="model">method_ltdc.shopify_report_delivery</field>
+        <field name="arch" type="xml">
+            <pivot string="Movimiento de productos por Shopify" disable_linking="True">
+                <field name="product_id" type="row"/>
+                <field name="location_id" type="col"/>
+                <field name="qty_done" type="measure"/>                
+            </pivot>
+        </field>
+    </record>
+
+
+    <record id="method_ltdc.shopify_delivery_report_graph" model="ir.ui.view">
+        <field name="model">method_ltdc.shopify_report_delivery</field>
+        <field name="arch" type="xml">
+            <graph string="Movimiento de productos por Shopify">
+                <field name="product_id" type="row"/>
+                <field name="location_id" type="col"/>
+                <field name="qty_done" type="measure"/>
+            </graph>
+        </field>
+    </record>    
+
+    <record id="method_ltdc.shopify_delivery_report_graphsearch" model="ir.ui.view">
+        <field name="model">method_ltdc.shopify_report_delivery</field>
+        <field name="arch" type="xml">
+            <search string="Stock por proveedor">
+                <field name="origin"/>
+                <separator/>
+                <field name="product_id"/>
+                <field name="picking_id"/>
+                <group expand="1" string="Group By">
+                    <filter string="Producto" name="product_id" context="{'group_by': 'product_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="method_ltdc.report_shopify_delivery_action" model="ir.actions.act_window">
+        <field name="name">Stock por proveedor</field>
+        <field name="res_model">method_ltdc.shopify_report_delivery</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">pivot,graph</field>
+        <field name="context">{'group_by_no_leaf': 1, 'group_by': []}</field>        
+    </record>
+
+
+
+    <menuitem
+        id="method_ltdc.informe_shopify_delivery"
+        name="Movimiento productos Shopify"
+        action="method_ltdc.report_shopify_delivery_action"
+        parent="stock.menu_warehouse_report"
+        sequence="4"/>
+
+
+</odoo>

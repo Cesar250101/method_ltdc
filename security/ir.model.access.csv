@@ -3,3 +3,4 @@ access_componente_director_inventario_ltdc,Componentes-Productos Directores Inve
 access_temporada_director_inventario_ltdc,Temporada-Productos Directores Inventario,method_ltdc.model_method_ltdc_producto_temporada,stock.group_stock_manager,1,1,1,1
 access_report_proveedor,Ventas por proveedor,method_ltdc.model_method_ltdc_ventas_report_proveedor,stock.group_stock_manager,1,1,1,1
 access_report_proveedor_stock,Stock por proveedor,method_ltdc.model_method_ltdc_stock_report_proveedor,stock.group_stock_manager,1,1,1,1
+access_movimiento_shopify,Movimiento producto Shopify,method_ltdc.model_method_ltdc_shopify_report_delivery,stock.group_stock_manager,1,1,1,1
