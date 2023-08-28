@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from datetime import timedelta
+from addons.sh_shopify_connector.models.sale_order import MAP_INVOICE_TYPE_PARTNER_TYPE
 # from addons.sh_shopify_connector.models.sale_order import MAP_INVOICE_TYPE_PARTNER_TYPE
 from odoo import fields, models,_,api
 from odoo.exceptions import UserError, ValidationError
@@ -111,5 +112,39 @@ class SaleOrder(models.Model):
                                 sms.send_sms()
                             except:
                                 pass
+            if self.workflow_id.create_invoice:
+                # invoice = self._create_invoices()
+                invoice = self._create_invoices()
+                if  self.workflow_id.sale_journal:
+                    invoice.write({
+                        'journal_id' : self.workflow_id.sale_journal.id
+                    })
+                
+                if self.workflow_id.validate_invoice:
+                    invoice.action_invoice_open()
+
+                    if self.workflow_id.send_invoice_by_email:
+                        template_id = self.env.ref('account.email_template_edi_invoice')
+                        template_id.with_context(model_description='').sudo().send_mail(invoice.id, force_send=True,notif_layout="mail.mail_notification_paynow")
+
+                    if self.workflow_id.register_payment:
+                        
+                        # payment_methods = self.env['account.payment.method'].search([('payment_type','=','inbound')])
+                        # journal = self.env['account.journal'].search([('type','in',('bank','cash'))])
+                        payment = self.env['account.payment'].create({
+                            'currency_id': invoice.currency_id.id,
+                            'amount':invoice.amount_total,
+                            'payment_type': 'inbound',
+                            'partner_id': invoice.commercial_partner_id.id,
+                            'partner_type': MAP_INVOICE_TYPE_PARTNER_TYPE[invoice.type],
+                            'communication': invoice.display_name,
+                            'invoice_ids': [(6, 0, invoice.ids)],
+                            'payment_method_id':self.workflow_id.payment_method.id,
+                            'journal_id':self.workflow_id.payment_journal.id,
+                            'payment_date':invoice.date_invoice
+                        })
+                    
+                        payment.post()
+
 
 
