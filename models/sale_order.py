@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 
 from datetime import timedelta
-from addons.sh_shopify_connector.models.sale_order import MAP_INVOICE_TYPE_PARTNER_TYPE
 # from addons.sh_shopify_connector.models.sale_order import MAP_INVOICE_TYPE_PARTNER_TYPE
 from odoo import fields, models,_,api
 from odoo.exceptions import UserError, ValidationError
@@ -136,7 +135,7 @@ class SaleOrder(models.Model):
                             'amount':invoice.amount_total,
                             'payment_type': 'inbound',
                             'partner_id': invoice.commercial_partner_id.id,
-                            'partner_type': MAP_INVOICE_TYPE_PARTNER_TYPE[invoice.type],
+                            # 'partner_type': MAP_INVOICE_TYPE_PARTNER_TYPE[invoice.type],
                             'communication': invoice.display_name,
                             'invoice_ids': [(6, 0, invoice.ids)],
                             'payment_method_id':self.workflow_id.payment_method.id,
