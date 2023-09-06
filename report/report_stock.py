@@ -13,10 +13,13 @@ class StockProveedor(models.Model):
     product_id = fields.Many2one(comodel_name='product.product', string='Producto')
     atributo_id = fields.Many2one(comodel_name='product.attribute.value', string='Atributo')
     ubicacion_id = fields.Many2one(comodel_name='stock.location', string='Ubicación')
-    stock = fields.Integer('Stock')
+    stock = fields.Integer(string='Stock')
     categoria_id = fields.Many2one(comodel_name='product.category', string='Categoria Producto')
     composicion_id = fields.Many2one(comodel_name='method_ltdc.producto_composicion', string='Composición')
     temporada_id = fields.Many2one(comodel_name='method_ltdc.producto_temporada', string='Temporada')
+    costo = fields.Integer(string='Costo')
+    costo_total = fields.Integer(string='Costo Total')
+    
 
 
     @api.model_cr
@@ -25,7 +28,12 @@ class StockProveedor(models.Model):
         tools.drop_view_if_exists(self._cr, self._table)
         self._cr.execute("""
             CREATE OR REPLACE VIEW %s AS (SELECT ROW_NUMBER() OVER() AS id, rp.id partner_id,pp.id product_id,pav.id atributo_id,
-                sl.id ubicacion_id,sq.quantity stock,pc.id categoria_id, mlpc.id composicion_id,mlpt.id temporada_id
+                sl.id ubicacion_id,sq.quantity stock,pc.id categoria_id, mlpc.id composicion_id,mlpt.id temporada_id,
+                (select cost from product_price_history pph
+                	where pph.product_id =pp.id
+							order by datetime desc
+							limit 1) costo,
+				(sq.quantity*(select cost from product_price_history pph where pph.product_id =pp.id order by datetime desc limit 1)) costo_total                                                  
                 from product_supplierinfo ps inner join res_partner rp on ps.name=rp.id
                 inner join product_template pt on ps.product_tmpl_id =pt.id
                 inner join product_product pp on pt.id=pp.product_tmpl_id 

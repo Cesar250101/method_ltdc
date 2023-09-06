@@ -8,7 +8,10 @@
                 <field name="partner_id" type="row"/>
                 <field name="product_id" type="row"/>
                 <field name="ubicacion_id" type="col"/>
-                <field name="stock" type="measure"/>                
+                <field name="stock" type="measure"/>     
+                <field name="costo" type="measure"/>     
+                <field name="costo_total" type="measure"/>     
+                
             </pivot>
         </field>
     </record>
