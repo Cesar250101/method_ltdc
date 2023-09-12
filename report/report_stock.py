@@ -28,23 +28,20 @@ class StockProveedor(models.Model):
         tools.drop_view_if_exists(self._cr, self._table)
         self._cr.execute("""
             CREATE OR REPLACE VIEW %s AS (SELECT ROW_NUMBER() OVER() AS id, rp.id partner_id,pp.id product_id,pav.id atributo_id,
-                sl.id ubicacion_id,sq.quantity stock,pc.id categoria_id, mlpc.id composicion_id,mlpt.id temporada_id,
-                (select cost from product_price_history pph
+sl.id ubicacion_id,sq.quantity stock,pt.categ_id  categoria_id, pt.componente_id composicion_id,pt.temporada_id  temporada_id,
+(select cost from product_price_history pph
                 	where pph.product_id =pp.id
 							order by datetime desc
 							limit 1) costo,
 				(sq.quantity*(select cost from product_price_history pph where pph.product_id =pp.id order by datetime desc limit 1)) costo_total                                                  
-                from product_supplierinfo ps inner join res_partner rp on ps.name=rp.id
-                inner join product_template pt on ps.product_tmpl_id =pt.id
-                inner join product_product pp on pt.id=pp.product_tmpl_id 
-                left join product_attribute_value_product_product_rel pavppr on pavppr.product_product_id  =pp.id 
-                left join product_attribute_value pav on pavppr.product_attribute_value_id=pav.id 
-                inner join  stock_quant sq on pp.id=sq.product_id
-                inner join stock_location sl on sq.location_id =sl.id
-                inner join product_category pc on pt.categ_id =pc.id
-                left join method_ltdc_producto_composicion mlpc on pt.componente_id =mlpc.id 
-                left join method_ltdc_producto_temporada mlpt on pt.temporada_id =mlpc.id 
-                where  sl.usage='internal' 
+from product_template pt left join res_partner rp  on pt.proveedor_id =rp.id
+inner join product_product pp on pt.id=pp.product_tmpl_id 
+left join product_attribute_value_product_product_rel pavppr on pavppr.product_product_id  =pp.id 
+left join product_attribute_value pav on pavppr.product_attribute_value_id=pav.id 
+inner join  stock_quant sq on pp.id=sq.product_id
+inner join stock_location sl on sq.location_id =sl.id
+where  sl.usage='internal'  
+                          
             )
         """ % (
             self._table
