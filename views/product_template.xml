@@ -9,9 +9,23 @@
         <xpath expr="//field[@name='categ_id']" position="after">
           <field name="componente_id" class="text-success" options="{'no_create': True}"/>
           <field name="temporada_id" class="text-success" options="{'no_create': True}"/>
+          <field name="proveedor_id"/>
         </xpath> 
       </field>
     </record>
 
+
+    
+  <!-- Product_template view tree -->
+      <record id="ltdc_product_template_tree_view" model="ir.ui.view">
+        <field name="name">ltdc.product.template.tree.view</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_tree_view"/>      
+        <field name="arch" type="xml">      
+          <xpath expr="//field[@name='default_code']" position="after">
+            <field name="proveedor_id"/>
+          </xpath> 
+        </field>
+      </record>
   </data>
 </odoo>

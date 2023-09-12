@@ -20,7 +20,7 @@ class ProductProduct(models.Model):
                                     string='Composición bak')
     temporada_id_bak = fields.Many2one(comodel_name='method_ltdc.producto_temporada', 
                                    string='Temporada bak')
-
+    proveedor_id= fields.Many2one(comodel_name='res.partner', string='Proveedor',related='product_tmpl_id.proveedor_id')
 
     @api.multi
     def generar_sku(self):

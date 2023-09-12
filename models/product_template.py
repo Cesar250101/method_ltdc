@@ -9,6 +9,8 @@ class ProductProduct(models.Model):
     sku_paris = fields.Char(string='SKU Paris')
     componente_id = fields.Many2one(comodel_name='method_ltdc.producto_composicion', string='Composición',required=True)
     temporada_id = fields.Many2one(comodel_name='method_ltdc.producto_temporada', string='Temporada',required=True)
+    proveedor_id= fields.Many2one(comodel_name='res.partner', string='Proveedor')
+    
 
     @api.multi
     def generar_sku(self):
