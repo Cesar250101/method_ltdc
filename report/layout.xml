@@ -1,14 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <!-- <template id="method_ltdc.dte_external_layout" name="dte_external_layout_extend" inherit_id="l10n_cl_fe.dte_external_layout">
-        <field name="default_code" position="after">        
-            <t t-if="o.partner_id.es_paris">
-                <td style="max-height:8px; line-height:10px !important;">
-                    <span t-field="l.product_id.default_code" />
-                </td>
-            </t>
-        </field>
-    </template>     -->
+
 
     <template id="ticket_cambio">
       <t t-call="web.basic_layout">
@@ -61,13 +53,23 @@
       </t>
     </template>
 
+  <template id="ticket_cambio_tamplate">
+    <t t-call="web.html_container">
+      <t t-foreach="docs" t-as="o">
+          <t t-call="method_ltdc.ticket_cambio" >
+        </t>
+      </t>
+    </t>
+</template>
+
+
     <report
         string="Ticket de Cambio"
         id="action_print_ticket_cambio"
         model="account.invoice"
         report_type="qweb-pdf"
-        name="method_ltdc.ticket_cambio"
-        file="method_ltdc.ticket_cambio"
+        name="method_ltdc.ticket_cambio_tamplate"
+        file="method_ltdc.ticket_cambio_tamplate"
         attachment_use="True"
         attachment="(object.state in ('open','paid')) and ('CED_'+(object.number or '').replace('/','')+'.pdf')"        
         paperformat="l10n_cl_dte_point_of_sale.paperformat_pos_boleta_ticket"
