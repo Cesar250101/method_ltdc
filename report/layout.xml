@@ -59,11 +59,12 @@
                         Fecha de Emisión: <strong><span t-field="o.date_invoice"/></strong><br/>
                     </div>
                   </div>
-                <div class="row">
-                    <p align="justify">No hacemos devoluciones de dinero por equivocación de talla, disconformidad del producto o arrepentimiento</p>
-                </div>
 
-                </t>
+                    <div class="row">
+                        <p align="justify">No hacemos devoluciones de dinero por equivocación de talla, disconformidad del producto o arrepentimiento</p>
+                    </div>
+
+
               </div>
           </t>
       </t>
