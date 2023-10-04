@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <template id="method_ltdc.dte_external_layout" name="dte_external_layout_extend" inherit_id="l10n_cl_fe.dte_external_layout">
+    <!-- <template id="method_ltdc.dte_external_layout" name="dte_external_layout_extend" inherit_id="l10n_cl_fe.dte_external_layout">
         <field name="default_code" position="after">        
             <t t-if="o.partner_id.es_paris">
                 <td style="max-height:8px; line-height:10px !important;">
@@ -8,5 +8,203 @@
                 </td>
             </t>
         </field>
-    </template>    
+    </template>     -->
+
+    <template id="ticket_cambio">
+      <t t-call="web.basic_layout">
+          <t t-foreach="docs" t-as="o">
+              <div class="page" style="width: 320px; font-size: 12px;">
+                  <div class="row">
+                    <div class="col-8" style="text-align: center;">
+                      <img style="width: auto; height: 100px; margin: 0 auto;" t-att-src="'data:image/png;base64,%s' % o.sii_header()"/>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-8" style="margin 0 auto;">
+                      <img t-if="logo" t-att-src="'data:image/png;base64,%s' % to_text(logo)" style="max-height: 100px;"/>
+                    </div>
+                  </div>
+                  <div class="row">
+                      <div class="col-8">
+                                <strong><span t-esc="o.company_id.partner_id.name"/></strong>
+                      </div>
+                  </div>
+                  <div class="row">
+                          <div class="col-8">
+                              <span>Casa Matriz:
+                                  <t t-esc="o.company_id.partner_id.street"/>
+                                  <t t-esc="o.company_id.partner_id.city"/>
+                                <br/>
+                              </span>
+                              <span>Giro: <span t-field="o.company_id.activity_description"/><br/></span>
+                              <t t-if="o.company_id.sucursal_ids and o.type in ['out_invoice', 'out_refund']">
+                                <t t-foreach="o.company_id.sucursal_ids" t-as="sucursal">
+                                  <span>Sucursal: </span><span t-field="sucursal.partner_id.street"/>, <span t-field="sucursal.partner_id.city_id.name"/>, <span t-field="sucursal.partner_id.city"/><br/>
+                                </t>
+                              </t>
+                              <span>Cajero: <t t-esc="o.user_id.name"/><br/></span>
+                          </div>
+                  </div>
+                  <div class="row" style="border-top: 1px solid black;">
+                      <div class="col-8" style="text-align: left;">
+                        Cliente: <strong><span t-field="o.partner_id.name"/></strong><br/>
+                        RUT: <span t-field="o.partner_id.document_number"/><br/>
+                        Dirección: <span t-field="o.partner_id.street"/><br/>
+                        Ciudad:  <span t-field="o.partner_id.city"/><br/>
+                        Número de identificación: <span t-field="o.partner_id.id"/><br/>
+                      </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-8">
+                        Fecha de Emisión: <strong><span t-field="o.date_invoice"/></strong><br/>
+                    </div>
+                  </div>
+
+                  <table class="table table-condensed" style="border-top: 1px solid black!important; width: 100%; line-height:1.5!important;">
+                      <thead>
+                          <tr style="border-bottom: 1px solid black;">
+                              <th class="text-left">Descripción</th>
+                              <th class="text-right">Cantidad</th>
+                              <th class="text-right">Precio</th>
+                              <th class="text-right">Total</th>
+                          </tr>
+                      </thead>
+                      <tbody style="border-top: 1px solid black; width: 100%;">
+                          <tr t-foreach="o.invoice_line_ids" t-as="line">
+                              <td>
+                                  <span t-field="line.product_id"/>
+                              </td>
+                              <td style="text-align: right;">
+                                  <span t-field="line.quantity" t-options="{'widget': 'float', 'precision': 2}"/>
+                              </td>
+                              <td style="text-align: right;">
+                                  <span t-field="line.price_unit" t-field-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/>
+                              </td>
+                              <td style="text-align: right;">
+                                  <span t-field="line.price_total" t-field-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/>
+                              </td>
+                          </tr>
+                      </tbody>
+                  </table>
+                  <div class="row">
+                      <div class="col-8 pull-right">
+                          <table class="table table-condensed" style="border-top: 1px solid black; width: 100%; line-height:1!important;">
+                              <t t-foreach="o.tax_line_ids" t-as="t">
+                                  <tr class="border-black" t-if="not o._es_boleta() or (o._es_boleta() and ( t.tax_id.amount == 0 or t.tax_id.sii_code in [14, 15, 17]))">
+                                      <td style="text-align: right;">
+                                          <t t-esc="t.tax_id.description"/>
+                                      </td>
+                                      <td style="text-align: right;">
+                                        <span t-esc="t.amount if t.amount &gt; 0 else t.base" t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/>
+                                      </td>
+                                  </tr>
+                              </t>
+                              <tr>
+                                  <td style="text-align: right;">
+                                      <strong>MONTO TOTAL</strong>
+                                  </td>
+                                  <td style="text-align: right;">
+                                      <span t-esc="o.amount_total" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"/>
+                                  </td>
+                              </tr>
+                          </table>
+                      </div>
+                  </div>
+                  <table class="table table-condensed pull-right" style="border-top: 1px solid black; width: 100%;">
+                      <thead>
+                          <tr>
+                              <th style="text-align: right;">FORMA DE PAGO</th>
+                              <th style="text-align: right;">MONTO</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                        <tr t-foreach="o.payment_ids" t-as="line">
+                          <tr>
+                            <td style="text-align: right;">
+                              <span t-field="o.amount_total" t-field-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/>
+                            </td>
+                            <td style="text-align: right;">
+                              <span t-field="o.amount_total" t-field-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/>
+                              </td>
+                          </tr>
+                        </tr>
+                      </tbody>
+                  </table>
+                  <div class="row" style="border-top: 1px solid black;">
+                      <div class="col-8" style="text-align:center;color:red; font-size:8px;!important">
+                          <img t-att-src="'data:image/png;base64,%s' % to_text(o.sii_barcode_img)"/>
+                      </div>
+                  </div>
+                  <div class="row">
+                      <div class="col-8">
+                          <p style="text-align:center;color:red; font-size:9px;!important">
+                          Timbre Electrónico SII
+                          <br/>
+                          Resolución <t t-esc="o.company_id.dte_resolution_number"/> de <t t-esc="o.company_id.dte_resolution_date.year"/> Verifique documento en: www.sii.cl <t t-if="not o._es_boleta()">o en </t><t t-if="o._es_boleta()" t-esc="'%s/boleta/%s' % (o.company_id.website, o.sii_document_number)"/>
+                           </p>
+                      </div>
+                  </div>
+                  <t t-if="cedible">
+                        <div class="row" style="font-size:10px !important; line-height:2!important;">
+                            <div style="width: 50px; display: inline-block; line-height:2!important; text-align: left!important;">
+                                <strong>Nombre: </strong>
+                            </div>
+                             <div style=" height:10px; width: 255px;display: inline-block; line-height:2!important; text-align: right!important;border-bottom: 1px solid black;">
+                            </div>
+                        </div>
+                        <div class="row" style="font-size:10px !important;">
+                            <div style="width: 50px; display: inline-block; line-height:2!important; text-align: left!important;">
+                              <strong>R.U.T.:</strong>
+                            </div>
+                            <div style=" height:10px; width: 100px; display: inline-block; line-height:2!important; text-align: right!important;border-bottom: 1px solid black; ">
+                            </div>
+                            <div style="width: 50px; display: inline-block; line-height:2!important; text-align: left!important;">
+                              <strong>FECHA:</strong>
+                            </div>
+                            <div style="height:10px; width: 100px; display: inline-block; line-height:2!important; text-align: right!important;border-bottom: 1px solid black;">
+                            </div>
+                        </div>
+                        <div class="row" style="font-size:10px !important;">
+                            <div style="width: 60px; display: inline-block; line-height:2!important; text-align: left!important;">
+                              <strong>RECINTO:</strong>
+                            </div>
+                            <div style=" height:10px; width: 90px; display: inline-block; line-height:2!important; text-align: right!important;border-bottom: 1px solid black;">
+                            </div>
+                            <div style="width: 50px; display: inline-block; line-height:2!important; text-align: left!important;">
+                                <strong>FIRMA:</strong>
+                            </div>
+                            <div style=" height:10px; width: 100px; display: inline-block; line-height:2!important; text-align: right!important;border-bottom: 1px solid black;">
+                            </div>
+                        </div>
+                        <div class="row" style="font-size:11px !important; width: 300px; line-height:1!important;">
+                          <div class="col-8">
+                            <p style="font-size:12px!important; line-height:1!important;">
+                              "El acuse de recibo que se declara en este acto, de acuerdo a lo dispuesto en la letra b) del Artículo 4°, y la letra c) del Artículo 5° de la Ley 19.983, acredita que la entrega de mercaderías o servicio(s) prestado(s) ha(n) sido recibido(s)"
+                            </p>
+                          </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-8">
+                                <p class="text-right">CEDIBLE</p>
+                            </div>
+                        </div>
+
+                </t>
+              </div>
+          </t>
+      </t>
+    </template>
+
+    <report
+        string="Ticket de Cambio"
+        id="action_print_ticket_cambio"
+        model="account.invoice"
+        report_type="qweb-html"
+        name="method_ltdc.ticket_cambio"
+        file="method_ltdc.ticket_cambio"
+        attachment_use="True"
+        attachment="object.number+'.pdf')"
+        paperformat="l10n_cl_dte_point_of_sale.paperformat_pos_boleta_ticket"
+    />
+
 </odoo>

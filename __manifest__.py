@@ -21,7 +21,7 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base','stock','l10n_cl_fe','sh_shopify_connector'],
+    'depends': ['base','stock','l10n_cl_fe','sh_shopify_connector','l10n_cl_dte_point_of_sale'],
 
     # always loaded
     'data': [
@@ -30,7 +30,7 @@
         'views/templates.xml',
         'views/res_partner.xml',
         'views/product_template.xml',
-        # 'report/layout.xml',
+        'report/layout.xml',
         'data/data.xml',
         'views/invoice.xml',
         'views/stock_move.xml',
