@@ -68,6 +68,8 @@
         report_type="qweb-pdf"
         name="method_ltdc.ticket_cambio"
         file="method_ltdc.ticket_cambio"
+        attachment_use="True"
+        attachment="(object.state in ('open','paid')) and ('CED_'+(object.number or '').replace('/','')+'.pdf')"        
         paperformat="l10n_cl_dte_point_of_sale.paperformat_pos_boleta_ticket"
     />
 
