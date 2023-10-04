@@ -14,16 +14,7 @@
       <t t-call="web.basic_layout">
           <t t-foreach="docs" t-as="o">
               <div class="page" style="width: 320px; font-size: 12px;">
-                  <div class="row">
-                    <div class="col-8" style="text-align: center;">
-                      <img style="width: auto; height: 100px; margin: 0 auto;" t-att-src="'data:image/png;base64,%s' % o.sii_header()"/>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-8" style="margin 0 auto;">
-                      <img t-if="logo" t-att-src="'data:image/png;base64,%s' % to_text(logo)" style="max-height: 100px;"/>
-                    </div>
-                  </div>
+                <h1>Ticket de Cambio</h1>
                   <div class="row">
                       <div class="col-8">
                                 <strong><span t-esc="o.company_id.partner_id.name"/></strong>
@@ -74,11 +65,11 @@
         string="Ticket de Cambio"
         id="action_print_ticket_cambio"
         model="account.invoice"
-        report_type="qweb-html"
+        report_type="qweb-pdf"
         name="method_ltdc.ticket_cambio"
         file="method_ltdc.ticket_cambio"
         attachment_use="True"
-        attachment="object.number+'.pdf')"
+        attachment="ticket.pdf"
         paperformat="l10n_cl_dte_point_of_sale.paperformat_pos_boleta_ticket"
     />
 
